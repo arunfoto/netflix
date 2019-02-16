@@ -13,44 +13,43 @@ use Yii;
  * @property int $link
  * @property string $poster
  * @property int $status
+ * @property int $movietype
  */
-class Movies extends \yii\db\ActiveRecord
-{
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'movies';
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['id', 'title', 'filename', 'poster'], 'required'],
-            [['id', 'link', 'status'], 'integer'],
-            [['title'], 'string', 'max' => 300],
-            [['filename'], 'string', 'max' => 200],
-            [['poster'], 'string', 'max' => 250],
-            [['id'], 'unique'],
-        ];
-    }
+class Movies extends \yii\db\ActiveRecord {
+	/**
+	 * {@inheritdoc}
+	 */
+	//public img1,mov1;
+	public static function tableName() {
+		return 'movies';
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'filename' => 'Filename',
-            'link' => 'Link',
-            'poster' => 'Poster',
-            'status' => 'Status',
-        ];
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function rules() {
+		return [
+			[['title', 'movietype'], 'required'],
+			[['status', 'movietype'], 'integer'],
+			[['filename'], 'file', 'extensions' => 'mp4'],
+			[['poster'], 'file', 'extensions'   => 'png, jpg, jpeg'],
+			[['link'], 'string', 'max'          => 500],
+		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function attributeLabels() {
+		return [
+			'id'        => 'ID',
+			'title'     => 'Title',
+			'filename'  => 'Filename',
+			'link'      => 'Link',
+			'poster'    => 'Poster',
+			'status'    => 'Status',
+			'movietype' => 'Movietype',
+		];
+	}
 }
